@@ -1,32 +1,32 @@
-import {
-  FILTER_CATEGORIES,
-  GET_CATEGORIES,
-  SET_SEARCH_TXT,
-} from './categories.actionsTypes';
+import {actions} from '../reducers/categories.reducer';
 import * as ApiController from '../../../API/apiController';
-import {AppDispatch, Category, RootState} from '../../../constants/types';
+import {Category} from '../../../constants/types';
+import {AppDispatch, CategoriesState} from '../../../constants/store';
 
-export const getCategories = () => {
-  return (dispatch: AppDispatch) => {
-    ApiController.getMenu()
-      .then(result => {
-        if (result) {
-          result.json().then(json => {
-            dispatch({
-              type: GET_CATEGORIES,
-              categories: json.categories,
+export const getCategories = (dispatch: AppDispatch) => {
+  ApiController.getMenu()
+    .then(result => {
+      if (result) {
+        result.json().then(json => {
+          dispatch(
+            actions.getCategories({
+              mainCategories: json.categories,
+              categoriesList: json.categories,
               links: json.links,
-            });
-          });
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  };
+            }),
+          );
+        });
+      }
+    })
+    .catch(err => {
+      console.error(err);
+    });
 };
 
-export const filterCategories = () => {
+export const filterCategories = (
+  dispatch: AppDispatch,
+  state: CategoriesState,
+) => {
   const searchText = (categories: Category[], searchTxt: string) => {
     const text = searchTxt.toLowerCase();
 
@@ -35,22 +35,24 @@ export const filterCategories = () => {
     });
   };
 
-  return (dispatch: AppDispatch, getState: () => RootState) => {
-    const categories = getState().categories.mainCategories;
-    const searchTxt = getState().categories.searchTxt;
+  return () => {
+    const categories = state.mainCategories;
+    const searchTxt = state.searchTxt;
 
-    dispatch({
-      type: FILTER_CATEGORIES,
-      categories: searchText(categories, searchTxt),
-    });
+    dispatch(
+      actions.filterCategories({
+        categoriesList: searchText(categories, searchTxt),
+      }),
+    );
   };
 };
 
-export const setSearchText = (s: string) => {
-  return (dispatch: AppDispatch) => {
-    dispatch({
-      type: SET_SEARCH_TXT,
-      searchTxt: s,
-    });
+export const setSearchText = (dispatch: AppDispatch, s: string) => {
+  return () => {
+    dispatch(
+      actions.setSearchText({
+        searchTxt: s,
+      }),
+    );
   };
 };

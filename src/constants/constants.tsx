@@ -1,2 +1,1 @@
-/* export const STATUSBAR_HEIGHT = 50; */
-export {};
+export const STATUSBAR_HEIGHT = 50;

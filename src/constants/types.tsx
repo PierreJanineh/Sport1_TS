@@ -1,11 +1,4 @@
 import {ListRenderItem} from 'react-native';
-import {store} from './store';
-
-export type AppStore = typeof store;
-
-export type RootState = ReturnType<typeof store.getState>;
-
-export type AppDispatch = typeof store.dispatch;
 
 //ListItem component Props Type
 export type Props = {

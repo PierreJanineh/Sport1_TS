@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import AppHeader from './AppHeader';
-import {StyleSheet, SafeAreaView, Text, View, Image} from 'react-native';
-import {RootStateOrAny, useDispatch, useSelector} from 'react-redux';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import * as Actions from '../features/menu/actions/categories.action';
 import ItemsList from './ItemsList';
 import {BKGD_GREY} from '../constants/colors';
@@ -13,41 +12,45 @@ import {
   PRIVACY_POLICY,
   TERMS_OF_USE,
 } from '../constants/strings';
-import {Link} from '../constants/types';
+import {AppDispatch, CategoriesState} from '../constants/store';
+import {useAppDispatch, useAppSelector} from '../constants/hooks';
+import {Category, Link, OtherListItem} from '../constants/types';
 
 const MainApp = () => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
 
   //Call Api Function when component first mounts
   useEffect(() => {
-    dispatch(Actions.getCategories());
-    // eslint-disable-next-line
+    Actions.getCategories(dispatch);
   }, []);
 
-  const categories: Types.Category[] = useSelector(
-    (state: RootStateOrAny) => state.categories.categories,
+  const categories: Types.Category[] = useAppSelector(
+    (state: CategoriesState) => state.categoriesList,
   );
 
-  const links = useSelector((state: RootStateOrAny) => state.categories.links);
+  const links = useAppSelector((state: CategoriesState) => state.links);
 
   const separator: Types.OtherListItem = {title: GENERAL_ITEM};
 
   const logo: Types.OtherListItem = {title: LOGO};
 
-  const combinedArr: any[] = [...categories, separator];
+  let combinedArr: Array<Category | OtherListItem | Link> = [...categories];
+
+  combinedArr.push(separator);
+
   if (links) {
     combinedArr.push({title: PRIVACY_POLICY, link: links.privacy_policy});
     combinedArr.push({title: TERMS_OF_USE, link: links.terms_of_use});
   }
 
+  combinedArr.push(logo);
   function renderItem(item: {item: Types.ListItem}) {
-    console.log(item.item);
     const getListItemText = () => {
-      if (categories.indexOf(item.item as Types.Category) && item.item.title) {
+      if ((item.item as Types.Category).title && item.item.title) {
         return item.item.title;
       } else {
-        if (item.item as Link) {
-          return (item.item as Link).title;
+        if (item.item as Types.Link) {
+          return (item.item as Types.Link).title;
         }
       }
     };
@@ -87,14 +90,7 @@ const MainApp = () => {
     <SafeAreaView style={styles.container}>
       <AppHeader />
       <Search />
-      <ItemsList
-        // items={[
-        //     ...categories,
-        //     logo
-        // ]}
-        items={[...combinedArr, logo]}
-        renderItem={renderItem}
-      />
+      <ItemsList items={combinedArr} renderItem={renderItem} />
     </SafeAreaView>
   );
 };

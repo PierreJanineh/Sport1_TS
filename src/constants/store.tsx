@@ -1,6 +1,15 @@
-import { applyMiddleware, createStore } from "redux";
-import thunkMiddleWare from 'redux-thunk';
-import rootReducer from '../features/menu/reducers/categories.reducers';
+import {configureStore} from '@reduxjs/toolkit';
+import reducer from '../features/menu/reducers/categories.reducer';
+import {Category} from './types';
 
-const composedEnhancer = applyMiddleware(thunkMiddleWare);
-export const store = createStore(rootReducer, composedEnhancer);
+export const store = configureStore({
+  reducer,
+});
+export type AppDispatch = typeof store.dispatch;
+
+export interface CategoriesState {
+  mainCategories: Category[];
+  categoriesList: Category[];
+  links: {[x: string]: string};
+  searchTxt: string;
+}

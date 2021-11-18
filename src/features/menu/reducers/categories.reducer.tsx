@@ -1,39 +1,31 @@
-import {AnyAction} from 'redux';
-import {
-  FILTER_CATEGORIES,
-  GET_CATEGORIES,
-  SET_SEARCH_TXT,
-} from '../actions/categories.actionsTypes';
+import {createSlice} from '@reduxjs/toolkit';
+import {CategoriesState} from '../../../constants/store';
 
-const initialState = {
+const initialState: CategoriesState = {
   mainCategories: [],
-  categories: [],
+  categoriesList: [],
+  links: {},
   searchTxt: '',
 };
 
-const categoriesReducer = (state = initialState, action: AnyAction) => {
-  switch (action.type) {
-    case GET_CATEGORIES:
-      return {
-        ...state,
-        mainCategories: action.categories,
-        categories: action.categories,
-        links: action.links,
-      };
-    case FILTER_CATEGORIES:
-      return {
-        ...state,
-        categories: action.categories,
-        links: action.links,
-      };
-    case SET_SEARCH_TXT:
-      return {
-        ...state,
-        searchTxt: action.searchTxt,
-      };
-    default:
-      return state;
-  }
-};
+const categoriesSlice = createSlice({
+  name: 'categories',
+  initialState,
+  reducers: {
+    getCategories: (state, action) => {
+      state.mainCategories = action.payload.mainCategories;
+      state.categoriesList = action.payload.categoriesList;
+      state.links = action.payload.links;
+    },
+    filterCategories: (state, action) => {
+      state.categoriesList = action.payload.categoriesList;
+    },
+    setSearchText: (state, action) => {
+      state.searchTxt = action.payload.searchTxt;
+    },
+  },
+});
 
-export default categoriesReducer;
+export const actions = categoriesSlice.actions;
+
+export default categoriesSlice.reducer;
