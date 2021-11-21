@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import AppHeader from './AppHeader';
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import * as Actions from '../features/menu/actions/categories.action';
+import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import * as Actions from '../features/menu/reducers/categories.reducer';
 import ItemsList from './ItemsList';
-import {BKGD_GREY} from '../constants/colors';
+import { BKGD_GREY } from '../constants/colors';
 import Search from './Search';
 import * as Types from '../constants/types';
 import {
@@ -12,39 +12,37 @@ import {
   PRIVACY_POLICY,
   TERMS_OF_USE,
 } from '../constants/strings';
-import {AppDispatch, CategoriesState} from '../constants/store';
-import {useAppDispatch, useAppSelector} from '../constants/hooks';
-import {Category, Link, OtherListItem} from '../constants/types';
+import { Category, Link, OtherListItem } from '../constants/types';
+import { useSelector } from 'react-redux';
+import {
+  selectFilteredCategories,
+  selectLinks,
+} from '../features/menu/reducers/categories.reducer';
 
 const MainApp = () => {
-  const dispatch: AppDispatch = useAppDispatch();
+  const categories = useSelector(selectFilteredCategories);
+  const links = useSelector(selectLinks);
 
   //Call Api Function when component first mounts
   useEffect(() => {
-    Actions.getCategories(dispatch);
+    Actions.getCategories();
   }, []);
 
-  const categories: Types.Category[] = useAppSelector(
-    (state: CategoriesState) => state.categoriesList,
-  );
+  const separator: Types.OtherListItem = { title: GENERAL_ITEM };
 
-  const links = useAppSelector((state: CategoriesState) => state.links);
-
-  const separator: Types.OtherListItem = {title: GENERAL_ITEM};
-
-  const logo: Types.OtherListItem = {title: LOGO};
+  const logo: Types.OtherListItem = { title: LOGO };
 
   let combinedArr: Array<Category | OtherListItem | Link> = [...categories];
 
   combinedArr.push(separator);
 
   if (links) {
-    combinedArr.push({title: PRIVACY_POLICY, link: links.privacy_policy});
-    combinedArr.push({title: TERMS_OF_USE, link: links.terms_of_use});
+    combinedArr.push({ title: PRIVACY_POLICY, link: links.privacy_policy });
+    combinedArr.push({ title: TERMS_OF_USE, link: links.terms_of_use });
   }
 
   combinedArr.push(logo);
-  function renderItem(item: {item: Types.ListItem}) {
+  function renderItem(item: { item: Types.ListItem }) {
     const getListItemText = () => {
       if ((item.item as Types.Category).title && item.item.title) {
         return item.item.title;

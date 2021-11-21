@@ -4,6 +4,6 @@ export const SEARCH_BAR_PLACEHOLDER = 'חפש קבוצות, ליגות, שחקנ
 export const PRIVACY_POLICY = 'מדיניות פרטיות';
 export const TERMS_OF_USE = 'תנאי שימוש';
 
-export const search = {
-  terms: 'dsdsds',
-};
+// export const search = {
+//   terms: 'dsdsds',
+// };

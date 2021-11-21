@@ -1,4 +1,11 @@
-import {ListRenderItem} from 'react-native';
+import { ListRenderItem } from 'react-native';
+
+export interface CategoriesState {
+  mainCategories: Category[];
+  categoriesList: Category[];
+  links: { [x: string]: string };
+  searchTxt: string;
+}
 
 //ListItem component Props Type
 export type Props = {

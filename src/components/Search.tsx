@@ -1,22 +1,22 @@
-import React, {useEffect} from 'react';
-import {Image, StyleSheet, TextInput, View} from 'react-native';
-import {SEARCH_BAR_PLACEHOLDER} from '../constants/strings';
-import * as Actions from '../features/menu/actions/categories.action';
-import {CategoriesState} from '../constants/store';
-import {useAppDispatch, useAppSelector} from '../constants/hooks';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Image, StyleSheet, TextInput, View } from 'react-native';
+import { SEARCH_BAR_PLACEHOLDER } from '../constants/strings';
+import * as Actions from '../features/menu/reducers/categories.reducer';
+import {
+  selectSearchText,
+  setSearchText,
+} from '../features/menu/reducers/categories.reducer';
 
 const Search = () => {
-  const dispatch = useAppDispatch();
-
-  const state: CategoriesState = useAppSelector(
-    (mystate: CategoriesState) => mystate,
-  );
+  const dispatch = useDispatch();
+  const searchTxt = useSelector(selectSearchText);
 
   useEffect(() => {
-    state.searchTxt === ''
-      ? Actions.getCategories(dispatch)
-      : Actions.filterCategories(dispatch, state);
-  }, [state.searchTxt]);
+    searchTxt && searchTxt === ''
+      ? Actions.getCategories()
+      : Actions.filterCategories();
+  }, [searchTxt]);
 
   return (
     <View style={styles.container}>
@@ -28,9 +28,13 @@ const Search = () => {
       <TextInput
         style={styles.input}
         placeholder={SEARCH_BAR_PLACEHOLDER}
-        onChangeText={s => {
-          Actions.setSearchText(dispatch, s);
-        }}
+        onChangeText={s =>
+          dispatch(
+            setSearchText({
+              searchTxt: s,
+            }),
+          )
+        }
       />
     </View>
   );

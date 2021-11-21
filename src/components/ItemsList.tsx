@@ -1,6 +1,6 @@
 import React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
-import {BKGD_GREY} from '../constants/colors';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { BKGD_GREY } from '../constants/colors';
 import * as Types from '../constants/types';
 
 const ItemsList = (props: Types.Props) => {
