@@ -1,8 +1,8 @@
 import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import * as Colors from '../constants/colors';
-import PersonSVG from '../features/menu/components/PersonSVG';
-import Sport1SVG from '../features/menu/components/Sport1SVG';
+import PersonSVG from '../../assets/svg/PersonSVG';
+import Sport1SVG from './Sport1SVG';
 
 const AppHeader = () => {
   return (

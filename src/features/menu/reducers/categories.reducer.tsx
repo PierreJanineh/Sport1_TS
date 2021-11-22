@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { CategoriesState, Category } from '../../../constants/types';
+import { CategoriesState } from '../../../constants/types';
 import { store } from '../../../constants/store';
 import * as ApiController from '../../../API/apiController';
 
@@ -24,6 +24,13 @@ const categoriesSlice = createSlice({
     },
     setSearchText: (state, action) => {
       state.searchTxt = action.payload.searchTxt;
+      if (state.searchTxt) {
+        state.filteredCategoriesList = state.mainCategories.filter(item => {
+          return item.title.includes(state.searchTxt);
+        });
+      } else {
+        state.filteredCategoriesList = state.mainCategories;
+      }
     },
   },
 });
@@ -46,25 +53,6 @@ export const getCategories = () => {
     .catch(err => {
       console.error(err);
     });
-};
-
-export const filterCategories = () => {
-  const searchText = (categories: Category[], searchTxt: string) => {
-    const text = searchTxt.toLowerCase();
-
-    return categories.filter(item => {
-      return item.title.toLowerCase().includes(text);
-    });
-  };
-
-  const categories = store.getState().mainCategories;
-  const searchTxt = store.getState().searchTxt;
-
-  store.dispatch(
-    categoriesSlice.actions.filterCategories({
-      filteredCategoriesList: searchText(categories, searchTxt),
-    }),
-  );
 };
 
 export const selectSearchText = (state: CategoriesState) => state.searchTxt;

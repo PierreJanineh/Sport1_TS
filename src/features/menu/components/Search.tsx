@@ -1,23 +1,12 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { SEARCH_BAR_PLACEHOLDER } from '../../../constants/strings';
-import * as Actions from '../reducers/categories.reducer';
-import {
-  selectSearchText,
-  setSearchText,
-} from '../reducers/categories.reducer';
+import { setSearchText } from '../reducers/categories.reducer';
 import SearchSVG from './SearchSVG';
 
 const Search = () => {
   const dispatch = useDispatch();
-  const searchTxt = useSelector(selectSearchText);
-
-  useEffect(() => {
-    searchTxt && searchTxt === ''
-      ? Actions.getCategories()
-      : Actions.filterCategories();
-  }, [searchTxt]);
 
   return (
     <View style={styles.container}>
