@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import AppHeader from './AppHeader';
-import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import * as Actions from '../features/menu/reducers/categories.reducer';
-import ItemsList from './ItemsList';
+import ItemsList from '../features/menu/components/ItemsList';
 import { BKGD_GREY } from '../constants/colors';
-import Search from './Search';
+import Search from '../features/menu/components/Search';
 import * as Types from '../constants/types';
 import {
   GENERAL_ITEM,
@@ -18,6 +18,7 @@ import {
   selectFilteredCategories,
   selectLinks,
 } from '../features/menu/reducers/categories.reducer';
+import MoveoSVG from '../features/menu/components/MoveoSVG';
 
 const MainApp = () => {
   const categories = useSelector(selectFilteredCategories);
@@ -56,11 +57,9 @@ const MainApp = () => {
     if (item.item && item.item.title === logo.title) {
       return (
         <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={require('../../assets/createdByMoveo.png')}
-            resizeMode={'contain'}
-          />
+          <View style={styles.logo}>
+            <MoveoSVG />
+          </View>
         </View>
       );
     }

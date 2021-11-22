@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Image, StyleSheet, TextInput, View } from 'react-native';
-import { SEARCH_BAR_PLACEHOLDER } from '../constants/strings';
-import * as Actions from '../features/menu/reducers/categories.reducer';
+import { StyleSheet, TextInput, View } from 'react-native';
+import { SEARCH_BAR_PLACEHOLDER } from '../../../constants/strings';
+import * as Actions from '../reducers/categories.reducer';
 import {
   selectSearchText,
   setSearchText,
-} from '../features/menu/reducers/categories.reducer';
+} from '../reducers/categories.reducer';
+import SearchSVG from './SearchSVG';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -20,11 +21,9 @@ const Search = () => {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require('../../assets/search.png')}
-        resizeMode={'contain'}
-      />
+      <View style={styles.image}>
+        <SearchSVG />
+      </View>
       <TextInput
         style={styles.input}
         placeholder={SEARCH_BAR_PLACEHOLDER}

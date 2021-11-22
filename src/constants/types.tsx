@@ -2,7 +2,7 @@ import { ListRenderItem } from 'react-native';
 
 export interface CategoriesState {
   mainCategories: Category[];
-  categoriesList: Category[];
+  filteredCategoriesList: Category[];
   links: { [x: string]: string };
   searchTxt: string;
 }

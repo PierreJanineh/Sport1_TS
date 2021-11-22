@@ -1,6 +1,8 @@
 import React from 'react';
-import { Image, Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import * as Colors from '../constants/colors';
+import PersonSVG from '../features/menu/components/PersonSVG';
+import Sport1SVG from '../features/menu/components/Sport1SVG';
 
 const AppHeader = () => {
   return (
@@ -12,18 +14,14 @@ const AppHeader = () => {
         }),
       }}>
       <View style={styles.favBtnContainer}>
-        <Image
-          style={styles.favPersonIcon}
-          source={require('../../assets/favPerson.png')}
-          resizeMode={'cover'}
-        />
+        <View style={styles.favPersonIcon}>
+          <PersonSVG />
+        </View>
       </View>
       <View style={styles.logoContainer}>
-        <Image
-          style={styles.logoImg}
-          source={require('../../assets/sport1Svg.png')}
-          resizeMode={'cover'}
-        />
+        <View style={styles.logoImg}>
+          <Sport1SVG />
+        </View>
       </View>
     </View>
   );
@@ -48,7 +46,8 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   favPersonIcon: {
-    marginHorizontal: 30,
+    alignSelf: 'flex-start',
+    marginHorizontal: 35,
   },
   logoContainer: {
     zIndex: 2,

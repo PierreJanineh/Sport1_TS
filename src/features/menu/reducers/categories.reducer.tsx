@@ -5,7 +5,7 @@ import * as ApiController from '../../../API/apiController';
 
 const initialState: CategoriesState = {
   mainCategories: [],
-  categoriesList: [],
+  filteredCategoriesList: [],
   links: {},
   searchTxt: '',
 };
@@ -16,11 +16,11 @@ const categoriesSlice = createSlice({
   reducers: {
     getCategories: (state, action) => {
       state.mainCategories = action.payload.mainCategories;
-      state.categoriesList = action.payload.categoriesList;
+      state.filteredCategoriesList = action.payload.filteredCategoriesList;
       state.links = action.payload.links;
     },
     filterCategories: (state, action) => {
-      state.categoriesList = action.payload.categoriesList;
+      state.filteredCategoriesList = action.payload.filteredCategoriesList;
     },
     setSearchText: (state, action) => {
       state.searchTxt = action.payload.searchTxt;
@@ -36,7 +36,7 @@ export const getCategories = () => {
           store.dispatch(
             categoriesSlice.actions.getCategories({
               mainCategories: json.categories,
-              categoriesList: json.categories,
+              filteredCategoriesList: json.categories,
               links: json.links,
             }),
           );
@@ -62,14 +62,14 @@ export const filterCategories = () => {
 
   store.dispatch(
     categoriesSlice.actions.filterCategories({
-      categoriesList: searchText(categories, searchTxt),
+      filteredCategoriesList: searchText(categories, searchTxt),
     }),
   );
 };
 
 export const selectSearchText = (state: CategoriesState) => state.searchTxt;
 export const selectFilteredCategories = (state: CategoriesState) =>
-  state.categoriesList;
+  state.filteredCategoriesList;
 export const selectMainCategories = (state: CategoriesState) =>
   state.mainCategories;
 export const selectLinks = (state: CategoriesState) => state.links;
