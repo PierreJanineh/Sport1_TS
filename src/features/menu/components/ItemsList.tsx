@@ -42,7 +42,43 @@ const ItemsList = () => {
         }
       }
     };
-    if (item.item && item.item.title === logo.title) {
+    // In types.ts file set these types and use them here
+export type Category = {
+  id: number;
+  isParentCategory: boolean;
+  children: Category[];
+}
+
+export enum ListType {
+  Item,
+  Logo,
+  Separator,
+  Link
+};
+
+export interface IBaseItem {
+  type: ListType;
+};
+
+export interface ITitleItem {
+  title: string;
+};
+
+export interface ILinkItem {
+  link: string;
+}
+
+export interface ICategoryItem {
+  id: number;
+  isParentCategory: boolean;
+  children: Category[];
+}
+
+export type ListItem = IBaseItem & ITitleItem;
+
+export type LinkItem = IBaseItem & ITitleItem & ILinkItem;
+
+export type CategoryItem = IBaseItem & ITitleItem & ICategoryItem;
       return (
         <View style={styles.logoContainer}>
           <View style={styles.logo}>
