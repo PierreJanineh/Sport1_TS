@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "moveo.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
