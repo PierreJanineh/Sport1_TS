@@ -1,12 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { CategoriesState } from '../../../constants/types';
+import {
+  CategoriesState,
+  CategoryItem,
+  LinkItem,
+  LinkTypes,
+  ListType,
+} from '../../../constants/types';
 import { store } from '../../../constants/store';
 import * as ApiController from '../../../API/apiController';
+import { PRIVACY_POLICY, TERMS_OF_USE } from '../../../constants/strings';
 
 const initialState: CategoriesState = {
   mainCategories: [],
   filteredCategoriesList: [],
-  links: {},
+  links: [],
   searchTxt: '',
 };
 
@@ -36,15 +43,40 @@ const categoriesSlice = createSlice({
 });
 
 export const getCategories = () => {
+  function getLocalizedTitle(propertyName: string): string {
+    switch (propertyName) {
+      case LinkTypes.privacy_policy:
+        return PRIVACY_POLICY;
+      case LinkTypes.terms_of_use:
+        return TERMS_OF_USE;
+    }
+    return '';
+  }
+
   ApiController.getMenu()
     .then(result => {
       if (result) {
         result.json().then(json => {
+          let mainCategories: CategoryItem[] = json.categories;
+          mainCategories.forEach(value => {
+            value.type = ListType.Item;
+          });
+
+          let links: { [x: string]: string } = json.links;
+          let linksArr: LinkItem[] = [];
+          for (const link in links) {
+            linksArr.push({
+              type: ListType.Link,
+              title: getLocalizedTitle(link),
+              link: links[link],
+            });
+          }
+
           store.dispatch(
             categoriesSlice.actions.getCategories({
-              mainCategories: json.categories,
-              filteredCategoriesList: json.categories,
-              links: json.links,
+              mainCategories: mainCategories,
+              filteredCategoriesList: mainCategories,
+              links: linksArr,
             }),
           );
         });

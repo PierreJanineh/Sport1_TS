@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { SEARCH_BAR_PLACEHOLDER } from '../../../constants/strings';
 import { setSearchText } from '../reducers/categories.reducer';
-import SearchSVG from './SearchSVG';
+import SearchSVG from '../../../../assets/svg/SearchSVG';
 
 const Search = () => {
   const dispatch = useDispatch();

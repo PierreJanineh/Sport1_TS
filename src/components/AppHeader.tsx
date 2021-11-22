@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import * as Colors from '../constants/colors';
 import PersonSVG from '../../assets/svg/PersonSVG';
-import Sport1SVG from './Sport1SVG';
+import Sport1SVG from '../../assets/svg/Sport1SVG';
 
 const AppHeader = () => {
   return (

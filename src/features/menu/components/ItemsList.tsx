@@ -2,83 +2,38 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { BKGD_GREY } from '../../../constants/colors';
 import * as Types from '../../../constants/types';
+import { ListItem, ListType } from '../../../constants/types';
 import { useSelector } from 'react-redux';
 import * as reducer from '../reducers/categories.reducer';
 import * as Actions from '../reducers/categories.reducer';
 import * as Strings from '../../../constants/strings';
-import { Category, Link, OtherListItem } from '../../../constants/types';
 import MoveoSVG from '../../../../assets/svg/MoveoSVG';
 
 const ItemsList = () => {
   const categories = useSelector(reducer.selectFilteredCategories);
   const links = useSelector(reducer.selectLinks);
 
+  function combineArrays() {
+    const separator: ListItem = {
+      type: ListType.Separator,
+      title: Strings.GENERAL_ITEM,
+    };
+
+    const logo: ListItem = {
+      type: ListType.Logo,
+      title: Strings.LOGO,
+    };
+
+    return [...categories, separator, ...links, logo];
+  }
+
   //Call Api Function when component first mounts
   useEffect(() => {
     Actions.getCategories();
   }, []);
 
-  const separator: Types.OtherListItem = { title: Strings.GENERAL_ITEM };
-
-  const logo: Types.OtherListItem = { title: Strings.LOGO };
-
-  let combinedArr: Array<Category | OtherListItem | Link> = [...categories];
-
-  combinedArr.push(separator);
-
-  if (links) {
-    combinedArr.push({ title: Strings.PRIVACY_POLICY, link: links.privacy_policy });
-    combinedArr.push({ title: Strings.TERMS_OF_USE, link: links.terms_of_use });
-  }
-
-  combinedArr.push(logo);
   function renderItem(item: { item: Types.ListItem }) {
-    const getListItemText = () => {
-      if ((item.item as Types.Category).title && item.item.title) {
-        return item.item.title;
-      } else {
-        if (item.item as Types.Link) {
-          return (item.item as Types.Link).title;
-        }
-      }
-    };
-    // In types.ts file set these types and use them here
-export type Category = {
-  id: number;
-  isParentCategory: boolean;
-  children: Category[];
-}
-
-export enum ListType {
-  Item,
-  Logo,
-  Separator,
-  Link
-};
-
-export interface IBaseItem {
-  type: ListType;
-};
-
-export interface ITitleItem {
-  title: string;
-};
-
-export interface ILinkItem {
-  link: string;
-}
-
-export interface ICategoryItem {
-  id: number;
-  isParentCategory: boolean;
-  children: Category[];
-}
-
-export type ListItem = IBaseItem & ITitleItem;
-
-export type LinkItem = IBaseItem & ITitleItem & ILinkItem;
-
-export type CategoryItem = IBaseItem & ITitleItem & ICategoryItem;
+    if (item.item.type === ListType.Logo) {
       return (
         <View style={styles.logoContainer}>
           <View style={styles.logo}>
@@ -91,17 +46,17 @@ export type CategoryItem = IBaseItem & ITitleItem & ICategoryItem;
     return (
       <View
         style={
-          item.item && item.item.title === separator.title
+          item.item.type === ListType.Separator
             ? styles.generalGreyContainer
             : styles.textContainer
         }>
         <Text
           style={
-            item.item && item.item && item.item.title === separator.title
+            item.item.type === ListType.Separator
               ? styles.generalGrey
               : styles.text
           }>
-          {getListItemText()}
+          {item.item.title}
         </Text>
       </View>
     );
@@ -110,7 +65,7 @@ export type CategoryItem = IBaseItem & ITitleItem & ICategoryItem;
   return (
     <FlatList
       style={styles.container}
-      data={combinedArr}
+      data={combineArrays()}
       renderItem={renderItem}
       // keyExtractor={item => item.id}
       scrollEnabled={true}
