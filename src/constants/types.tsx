@@ -1,55 +1,50 @@
-import { ListRenderItem } from 'react-native';
-
 export interface CategoriesState {
-  mainCategories: Category[];
-  filteredCategoriesList: Category[];
-  links: { [x: string]: string };
+  mainCategories: CategoryItem[];
+  filteredCategoriesList: CategoryItem[];
+  links: LinkItem[];
   searchTxt: string;
 }
 
-//ListItem component Props Type
-export type Props = {
-  items: any[];
-  renderItem: ListRenderItem<ListItem>;
-};
-
-export interface ListItem {
-  title: string;
-}
-
-export class Category implements ListItem {
-  title: string;
+export type Category = {
   id: number;
   isParentCategory: boolean;
   children: Category[];
+};
 
-  constructor(
-    title: string,
-    id: number,
-    isParentCategory: boolean,
-    children: Category[],
-  ) {
-    this.title = title;
-    this.id = id;
-    this.isParentCategory = isParentCategory;
-    this.children = children;
-  }
+export enum ListType {
+  Item,
+  Logo,
+  Separator,
+  Link,
 }
 
-export class Link implements ListItem {
+export enum LinkTypes {
+  privacy_policy = 'privacy_policy',
+  terms_of_use = 'terms_of_use',
+}
+
+export interface IBaseItem {
+  type: ListType;
+}
+
+export interface ITitleItem {
   title: string;
+}
+
+export interface ILinkItem {
   link: string;
-
-  constructor(title: string, link: string) {
-    this.title = title;
-    this.link = link;
-  }
 }
 
-export class OtherListItem implements ListItem {
-  title: string;
-
-  constructor(title: string) {
-    this.title = title;
-  }
+export interface ICategoryItem {
+  id: number;
+  isParentCategory: boolean;
+  children: Category[];
 }
+
+export type ListItem = IBaseItem & ITitleItem;
+
+export type LinkItem = IBaseItem & ITitleItem & ILinkItem;
+
+export type CategoryItem = IBaseItem & ITitleItem & ICategoryItem;
+
+export type ListItemType = ListItem | LinkItem | CategoryItem;
