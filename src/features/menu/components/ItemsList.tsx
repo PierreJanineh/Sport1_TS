@@ -33,33 +33,34 @@ const ItemsList = () => {
   }, []);
 
   function renderItem(item: { item: Types.ListItem }) {
-    if (item.item.type === ListType.Logo) {
-      return (
-        <View style={styles.logoContainer}>
-          <View style={styles.logo}>
-            <MoveoSVG />
+    switch (item.item.type) {
+      case ListType.Logo:
+        return (
+          <View style={styles.logoContainer}>
+            <View style={styles.logo}>
+              <MoveoSVG />
+            </View>
           </View>
-        </View>
-      );
+        );
+      default:
+        return (
+          <View
+            style={
+              item.item.type === ListType.Separator
+                ? styles.generalGreyContainer
+                : styles.textContainer
+            }>
+            <Text
+              style={
+                item.item.type === ListType.Separator
+                  ? styles.generalGrey
+                  : styles.text
+              }>
+              {item.item.title}
+            </Text>
+          </View>
+        );
     }
-
-    return (
-      <View
-        style={
-          item.item.type === ListType.Separator
-            ? styles.generalGreyContainer
-            : styles.textContainer
-        }>
-        <Text
-          style={
-            item.item.type === ListType.Separator
-              ? styles.generalGrey
-              : styles.text
-          }>
-          {item.item.title}
-        </Text>
-      </View>
-    );
   }
 
   return (
@@ -67,7 +68,6 @@ const ItemsList = () => {
       style={styles.container}
       data={combineArrays()}
       renderItem={renderItem}
-      // keyExtractor={item => item.id}
       scrollEnabled={true}
       ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
     />
