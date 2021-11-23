@@ -4,9 +4,9 @@
 
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import MainApp from './src/components/MainApp';
 import { store } from './src/constants/store';
 import SplashScreen from 'react-native-splash-screen';
+import Navigator from './src/components/Navigator';
 
 const App = () => {
   useEffect(() => {
@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <MainApp />
+      <Navigator />
     </Provider>
   );
 };
