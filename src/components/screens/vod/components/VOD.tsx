@@ -1,12 +1,19 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import * as Strings from '../../../../constants/strings';
-import * as Colors from '../../../../constants/colors';
+import { StyleSheet, View } from 'react-native';
+import Video from 'react-native-video';
 
 const VOD = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{Strings.tabs.VOD}</Text>
+      <View style={styles.videoContainer}>
+        <Video
+          style={styles.video}
+          controls={true}
+          source={{
+            uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -14,11 +21,16 @@ const VOD = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  text: {
-    color: Colors.BKGD_GREY,
+  videoContainer: {
+    width: '100%',
+    height: 203,
+  },
+  video: {
+    width: '100%',
+    height: '100%',
   },
 });
 
