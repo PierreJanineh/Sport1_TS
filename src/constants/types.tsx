@@ -41,6 +41,8 @@ export interface ICategoryItem {
   children: Category[];
 }
 
+export type FocusableSvgProps = { focused: boolean };
+
 export type ListItem = IBaseItem & ITitleItem;
 
 export type LinkItem = IBaseItem & ITitleItem & ILinkItem;

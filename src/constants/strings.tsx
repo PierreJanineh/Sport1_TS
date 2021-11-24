@@ -7,3 +7,11 @@ export const TERMS_OF_USE = 'תנאי שימוש';
 // export const search = {
 //   terms: 'dsdsds',
 // };
+
+export const tabs = {
+  home: 'ראשי',
+  results: 'תוצאות',
+  VOD: 'VOD',
+  streaming: 'שידורים',
+  more: 'עוד',
+};

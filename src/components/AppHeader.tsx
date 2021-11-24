@@ -1,7 +1,6 @@
 import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import * as Colors from '../constants/colors';
-import PersonSVG from '../../assets/svg/PersonSVG';
 import Sport1SVG from '../../assets/svg/Sport1SVG';
 
 const AppHeader = () => {
@@ -13,11 +12,6 @@ const AppHeader = () => {
           default: styles.header,
         }),
       }}>
-      <View style={styles.favBtnContainer}>
-        <View style={styles.favPersonIcon}>
-          <PersonSVG />
-        </View>
-      </View>
       <View style={styles.logoContainer}>
         <View style={styles.logoImg}>
           <Sport1SVG />
@@ -29,6 +23,7 @@ const AppHeader = () => {
 
 const styles = StyleSheet.create({
   headerBase: {
+    flex: 1,
     width: '100%',
     height: 50,
     paddingVertical: 10,
@@ -38,16 +33,6 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: Colors.APP_BAR_COLOR,
-  },
-  favBtnContainer: {
-    width: '100%',
-    position: 'absolute',
-    zIndex: 1,
-    elevation: 1,
-  },
-  favPersonIcon: {
-    alignSelf: 'flex-start',
-    marginHorizontal: 35,
   },
   logoContainer: {
     zIndex: 2,

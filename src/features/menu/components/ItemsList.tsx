@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { BKGD_GREY } from '../../../constants/colors';
 import * as Types from '../../../constants/types';
-import { ListItem, ListType } from '../../../constants/types';
+import { ListItem, ListItemType, ListType } from "../../../constants/types";
 import { useSelector } from 'react-redux';
 import * as reducer from '../reducers/categories.reducer';
 import * as Actions from '../reducers/categories.reducer';
