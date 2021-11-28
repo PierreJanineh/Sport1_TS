@@ -15,3 +15,12 @@ export const tabs = {
   streaming: 'שידורים',
   more: 'עוד',
 };
+
+export const apiController = {
+  url: 'https://sp1liv.maariv.co.il/wp-json/',
+  headerKey: 'x-sport1-mobile-app',
+  headerValue: 'true',
+
+  mainMenu: 'sport1/v1/navigation',
+  vodMenu: 'wp/v2/vod/main',
+};

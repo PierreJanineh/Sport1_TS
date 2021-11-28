@@ -1,10 +1,20 @@
+import { apiController } from '../constants/strings';
+
 export const getMenu = async () => {
-  const url = 'https://sp1liv.maariv.co.il/wp-json/sport1/v1/navigation';
+  return apiCall(apiController.mainMenu);
+};
+
+export const getVODMenu = async () => {
+  return apiCall(apiController.vodMenu);
+};
+
+const apiCall = async (endPoint: string) => {
+  const url = apiController.url + endPoint;
   try {
     return await fetch(url, {
       method: 'get',
       headers: new Headers({
-        'x-sport1-mobile-app': 'true',
+        [apiController.headerKey]: apiController.headerValue,
       }),
     });
   } catch (err) {
