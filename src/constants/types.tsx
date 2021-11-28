@@ -42,6 +42,7 @@ export interface ICategoryItem {
 }
 
 export type FocusableSvgProps = { focused: boolean };
+export type CollapsibleMenuProps = { collapsed: boolean };
 
 export type ListItem = IBaseItem & ITitleItem;
 
