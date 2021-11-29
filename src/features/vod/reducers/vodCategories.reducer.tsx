@@ -45,5 +45,6 @@ export const getVODCategories = () => {
 
 export const selectVODCategories = (state: VODCategoriesState) =>
   state.categories;
+export const selectLoading = (state: VODCategoriesState) => state.loading;
 
 export default categoriesSlice.reducer;
