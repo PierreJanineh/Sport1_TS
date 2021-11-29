@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { VODCategoriesState, VODCategory } from '../../../constants/types';
+import {
+  RootState,
+  VODCategoriesState,
+  VODCategory,
+} from '../../../constants/types';
 import { store } from '../../../constants/store';
 import * as ApiController from '../../../API/apiController';
 
@@ -43,8 +47,7 @@ export const getVODCategories = () => {
     });
 };
 
-export const selectVODCategories = (state: VODCategoriesState) =>
-  state.categories;
-export const selectLoading = (state: VODCategoriesState) => state.loading;
+export const selectVODCategories = (state: RootState) => state.vod.categories;
+export const selectLoading = (state: RootState) => state.vod.loading;
 
 export default categoriesSlice.reducer;
