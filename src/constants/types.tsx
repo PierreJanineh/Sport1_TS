@@ -123,4 +123,7 @@ export type CategoryItem = IBaseItem & ITitleItem & ICategoryItem;
 
 export type ListItemType = ListItem | LinkItem | CategoryItem;
 
-export type RootState = CategoriesState | VODCategoriesState;
+export type RootState = {
+  main: CategoriesState;
+  vod: VODCategoriesState;
+};
