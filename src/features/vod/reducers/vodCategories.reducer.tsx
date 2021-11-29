@@ -34,8 +34,12 @@ export const getVODCategories = () => {
         });
       }
     })
-    .catch(err => {
-      console.error(err);
+    .catch(() => {
+      store.dispatch(
+        categoriesSlice.actions.getVODCategories({
+          categories: null,
+        }),
+      );
     });
 };
 
