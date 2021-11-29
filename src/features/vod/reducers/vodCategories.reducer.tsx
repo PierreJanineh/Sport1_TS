@@ -5,6 +5,7 @@ import * as ApiController from '../../../API/apiController';
 
 const initialState: VODCategoriesState = {
   categories: [],
+  loading: true,
 };
 
 const categoriesSlice = createSlice({
@@ -13,6 +14,7 @@ const categoriesSlice = createSlice({
   reducers: {
     getVODCategories: (state, action) => {
       state.categories = action.payload.categories;
+      state.loading = false;
     },
   },
 });

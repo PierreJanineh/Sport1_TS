@@ -1,5 +1,6 @@
 export interface VODCategoriesState {
   categories: CategoryItem[];
+  loading: boolean;
 }
 
 export interface VODRobots {
