@@ -6,3 +6,8 @@ export const tabs = {
   focused: '#02f784',
   unfocused: '#8b8b8b',
 };
+
+export const vod = {
+  menuListBackground: '#282828',
+  menuListText: '#bebebe',
+};
