@@ -1,5 +1,5 @@
 export interface VODCategoriesState {
-  categories: CategoryItem[];
+  categories: VODListItem[];
   loading: boolean;
   chosenVideo?: VODVideo;
 }
@@ -7,9 +7,9 @@ export interface VODCategoriesState {
 export interface VODRobots {
   index: string;
   follow: string;
-  maxSnippet: string;
-  maxImagePreview: string;
-  maxVideoPreview: string;
+  max_snippet: string;
+  max_image_preview: string;
+  max_video_preview: string;
 }
 
 export interface VODOgImage {
@@ -23,14 +23,14 @@ export interface VODYoastHeadJson {
   title: string;
   robots: VODRobots;
   canonical: string;
-  ogLocale: string;
-  ogType: string;
-  ogTitle: string;
-  ogUrl: string;
-  ogSiteName: string;
-  ogImage: VODOgImage[];
-  articleModifiedTime: string;
-  twitterCard: string;
+  og_locale: string;
+  og_type: string;
+  og_title: string;
+  og_url: string;
+  og_siteName: string;
+  og_image: VODOgImage[];
+  article_modified_time: string;
+  twitter_card: string;
 }
 
 export interface VODFeaturedImage {
@@ -51,17 +51,17 @@ export interface VODShare {
 
 export interface VODVideo {
   id: number;
-  videoId: number;
-  videoName: string;
-  videoDuration: number;
-  videoPoster: string;
-  featuredImage: VODFeaturedImage;
+  video_id: number;
+  video_name: string;
+  video_duration: number;
+  video_poster: string;
+  featured_image: VODFeaturedImage;
   category: VODVideoCategory;
   share: VODShare;
   date: string;
   title: string;
-  yoastHead: string;
-  yoastHeadJson: VODYoastHeadJson;
+  yoast_head: string;
+  yoast_head_json: VODYoastHeadJson;
 }
 
 export type VODCategory = {
@@ -96,8 +96,8 @@ export enum LinkTypes {
   terms_of_use = 'terms_of_use',
 }
 
-export interface IBaseItem {
-  type: ListType;
+export interface IBaseItem<T> {
+  type: T;
 }
 
 export interface ITitleItem {
@@ -115,12 +115,13 @@ export interface ICategoryItem {
 }
 
 export type FocusableSvgProps = { focused: boolean };
+export type CollapsibleMenuProps = { collapsed: boolean };
 
-export type ListItem = IBaseItem & ITitleItem;
+export type ListItem = IBaseItem<ListType> & ITitleItem;
 
-export type LinkItem = IBaseItem & ITitleItem & ILinkItem;
+export type LinkItem = IBaseItem<ListType> & ITitleItem & ILinkItem;
 
-export type CategoryItem = IBaseItem & ITitleItem & ICategoryItem;
+export type CategoryItem = IBaseItem<ListType> & ITitleItem & ICategoryItem;
 
 export type ListItemType = ListItem | LinkItem | CategoryItem;
 
