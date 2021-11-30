@@ -85,6 +85,6 @@ export const setChosenVideo = (chosenVideo: VODVideo) => {
 
 export const selectVODCategories = (state: RootState) => state.vod.categories;
 export const selectLoading = (state: RootState) => state.vod.loading;
-export const selectChosenVideo = (state: RootState) => state.vod.categories;
+export const selectChosenVideo = (state: RootState) => state.vod.chosenVideo;
 
 export default categoriesSlice.reducer;
