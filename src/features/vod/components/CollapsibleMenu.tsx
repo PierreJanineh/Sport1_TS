@@ -12,6 +12,7 @@ import { VODCategories } from '../../../constants/types';
 import ItemSeparator from '../../../components/ItemSeparator';
 import { useSelector } from 'react-redux';
 import * as reducer from '../reducers/vodCategories.reducer';
+import CategoryTabs from './CategoryTabs';
 
 const CollapsibleMenu = () => {
   const [menuCollapsed, setMenuCollapsed] = useState(true);
@@ -36,16 +37,14 @@ const CollapsibleMenu = () => {
 
   function renderMenuItem(item: { item: VODCategories }) {
     return (
-      <View>
-        <TouchableOpacity
-          onPress={() => {
-            setChosenItem(item.item);
-            setMenuCollapsed(true);
-          }}
-          style={[styles.container, styles.listBackground]}>
-          <Text style={[styles.text, styles.listText]}>{item.item}</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        onPress={() => {
+          setChosenItem(item.item);
+          setMenuCollapsed(true);
+        }}
+        style={[styles.container, styles.listBackground]}>
+        <Text style={[styles.text, styles.listText]}>{item.item}</Text>
+      </TouchableOpacity>
     );
   }
 
@@ -68,6 +67,7 @@ const CollapsibleMenu = () => {
           ItemSeparatorComponent={() => <ItemSeparator />}
         />
       ) : null}
+      <CategoryTabs selectedCategory={chosenItem} />
     </View>
   );
 };
