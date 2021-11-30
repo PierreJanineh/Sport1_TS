@@ -2,6 +2,7 @@ export interface VODCategoriesState {
   categories: VODListItem[];
   loading: boolean;
   chosenVideo?: VODVideo;
+  chosenCategory?: { category: VODCategories; subCategory: VODListItem };
 }
 
 export interface VODRobots {

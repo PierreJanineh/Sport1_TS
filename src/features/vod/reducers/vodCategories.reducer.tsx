@@ -25,6 +25,12 @@ const categoriesSlice = createSlice({
     setChosenVideo: (state, action) => {
       state.chosenVideo = action.payload.video;
     },
+    setChosenCategory: (state, action) => {
+      state.chosenCategory = {
+        category: action.payload.category,
+        subCategory: action.payload.subCategory,
+      };
+    },
   },
 });
 
@@ -83,8 +89,22 @@ export const setChosenVideo = (chosenVideo: VODVideo) => {
   );
 };
 
+export const setChosenCategory = (
+  chosenCategory: VODCategories,
+  chosenSubCategory: VODListItem,
+) => {
+  store.dispatch(
+    categoriesSlice.actions.setChosenCategory({
+      category: chosenCategory,
+      subCategory: chosenSubCategory,
+    }),
+  );
+};
+
 export const selectVODCategories = (state: RootState) => state.vod.categories;
 export const selectLoading = (state: RootState) => state.vod.loading;
 export const selectChosenVideo = (state: RootState) => state.vod.chosenVideo;
+export const selectChosenCategory = (state: RootState) =>
+  state.vod.chosenCategory;
 
 export default categoriesSlice.reducer;
