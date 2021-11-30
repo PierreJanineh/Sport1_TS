@@ -9,7 +9,7 @@ const VideoPlayer = () => {
         style={styles.video}
         controls={true}
         source={{
-          uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+          uri: 'https://www.rmp-streaming.com/media/big-buck-bunny-360p.mp4',
         }}
       />
     </View>

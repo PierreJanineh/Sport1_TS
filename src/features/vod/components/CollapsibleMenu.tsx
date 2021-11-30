@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,29 +10,42 @@ import CollapsedArrowSVG from '../../../../assets/svg/CollapsedArrowSVG';
 import * as Colors from '../../../constants/colors';
 import { VODCategories } from '../../../constants/types';
 import ItemSeparator from '../../../components/ItemSeparator';
+import { useSelector } from 'react-redux';
+import * as reducer from '../reducers/vodCategories.reducer';
 
 const CollapsibleMenu = () => {
   const [menuCollapsed, setMenuCollapsed] = useState(true);
   const [chosenItem, setChosenItem] = useState(orderMenuList()[0]);
+  const categories = useSelector(reducer.selectVODCategories);
+
+  useEffect(() => {
+    reducer.setChosenVideo(
+      categories.filter(val => {
+        return val.type === chosenItem;
+      })[0].videos[0],
+    );
+  }, [chosenItem]);
 
   function orderMenuList(): VODCategories[] {
-    const categories: VODCategories[] = [];
+    const cates: VODCategories[] = [];
     for (const key in VODCategories) {
-      categories.push(VODCategories[key as keyof typeof VODCategories]);
+      cates.push(VODCategories[key as keyof typeof VODCategories]);
     }
-    return categories;
+    return cates;
   }
 
   function renderMenuItem(item: { item: VODCategories }) {
     return (
-      <TouchableOpacity
-        onPress={() => {
-          setChosenItem(item.item);
-          setMenuCollapsed(true);
-        }}
-        style={[styles.container, styles.listBackground]}>
-        <Text style={[styles.text, styles.listText]}>{item.item}</Text>
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            setChosenItem(item.item);
+            setMenuCollapsed(true);
+          }}
+          style={[styles.container, styles.listBackground]}>
+          <Text style={[styles.text, styles.listText]}>{item.item}</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 

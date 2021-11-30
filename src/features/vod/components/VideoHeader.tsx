@@ -2,14 +2,22 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Share } from 'react-native';
 import ShareSVG from '../../../../assets/svg/ShareSVG';
 import * as Colors from '../../../constants/colors';
+import { VODVideo } from '../../../constants/types';
+import { useSelector } from 'react-redux';
+import * as reducer from '../reducers/vodCategories.reducer';
 
 const VideoHeader = () => {
+  let video: VODVideo | undefined = useSelector(reducer.selectChosenVideo);
+
+  function parseDate() {
+    return new Date(video!.date);
+  }
+
   const onShare = async () => {
     try {
       await Share.share({
-        message:
-          'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-        url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+        message: video!.yoast_head_json.og_url,
+        url: video!.yoast_head_json.og_url,
       });
     } catch (error) {
       console.log(error);
@@ -18,15 +26,19 @@ const VideoHeader = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>
-          בני יהודה ניצחה 1:2 את הפועל באר שבע לאחר מהפך של זנטי
-        </Text>
-        <View style={styles.dateTimeContainer}>
-          <Text style={[styles.text, styles.date]}>25.11.21</Text>
-          <Text style={[styles.text, styles.time]}>15:43</Text>
+      {video ? (
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>{video!.yoast_head_json.title}</Text>
+          <View style={styles.dateTimeContainer}>
+            <Text style={[styles.text, styles.date]}>
+              {parseDate().toLocaleDateString('default').split('/').join('.')}
+            </Text>
+            <Text style={[styles.text, styles.time]}>
+              {parseDate().toLocaleTimeString('default', { hour12: false })}
+            </Text>
+          </View>
         </View>
-      </View>
+      ) : null}
       <TouchableOpacity style={styles.shareIcon} onPress={() => onShare()}>
         <ShareSVG />
       </TouchableOpacity>
