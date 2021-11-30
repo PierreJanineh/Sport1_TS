@@ -4,6 +4,7 @@ import {
   VODCategories,
   VODCategoriesState,
   VODListItem,
+  VODVideo,
 } from '../../../constants/types';
 import { store } from '../../../constants/store';
 import * as ApiController from '../../../API/apiController';
@@ -20,6 +21,9 @@ const categoriesSlice = createSlice({
     getVODCategories: (state, action) => {
       state.categories = action.payload.categories;
       state.loading = false;
+    },
+    setChosenVideo: (state, action) => {
+      state.chosenVideo = action.payload.video;
     },
   },
 });
@@ -71,7 +75,16 @@ export const getVODCategories = () => {
     });
 };
 
+export const setChosenVideo = (chosenVideo: VODVideo) => {
+  store.dispatch(
+    categoriesSlice.actions.setChosenVideo({
+      video: chosenVideo,
+    }),
+  );
+};
+
 export const selectVODCategories = (state: RootState) => state.vod.categories;
 export const selectLoading = (state: RootState) => state.vod.loading;
+export const selectChosenVideo = (state: RootState) => state.vod.categories;
 
 export default categoriesSlice.reducer;
