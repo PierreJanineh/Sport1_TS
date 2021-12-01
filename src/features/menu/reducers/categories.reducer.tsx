@@ -88,7 +88,7 @@ export const getCategories = () => {
     });
 };
 
-export const selectSearchText = (state: CategoriesState) => state.searchTxt;
+export const selectSearchText = (state: RootState) => state.main.searchTxt;
 export const selectFilteredCategories = (state: RootState) =>
   state.main.filteredCategoriesList;
 export const selectMainCategories = (state: RootState) =>
