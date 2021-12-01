@@ -1,16 +1,22 @@
+export enum ItemSeparatorType {
+  MoreMenuList,
+  VODCollapsibleList,
+  VODVideosList,
+}
+
 export interface VODCategoriesState {
-  categories: VODListItem[];
+  categories: VODCategory[];
   loading: boolean;
   chosenVideo?: VODVideo;
-  chosenCategory?: { category: VODCategories; subCategory: VODListItem };
+  chosenCategory?: { category: VODCategory; subCategory: VODSubCategory };
 }
 
 export interface VODRobots {
   index: string;
   follow: string;
-  max_snippet: string;
-  max_image_preview: string;
-  max_video_preview: string;
+  maxSnippet: string;
+  maxImagePreview: string;
+  maxVideoPreview: string;
 }
 
 export interface VODOgImage {
@@ -40,7 +46,7 @@ export interface VODFeaturedImage {
   credit: string;
 }
 
-export interface VODVideoCategory {
+export interface VODSubCategory {
   id: string;
   name: string;
 }
@@ -57,7 +63,7 @@ export interface VODVideo {
   video_duration: number;
   video_poster: string;
   featured_image: VODFeaturedImage;
-  category: VODVideoCategory;
+  category: VODSubCategory;
   share: VODShare;
   date: string;
   title: string;
@@ -68,7 +74,7 @@ export interface VODVideo {
 export type VODCategory = {
   id: number;
   name: string;
-  subCategories: VODVideoCategory[];
+  subCategories: VODSubCategory[];
   videos: VODVideo[];
 };
 
