@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { Dimensions, StyleSheet, Text } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import { VODCategories } from '../../../constants/types';
-import { useSelector } from 'react-redux';
-import * as reducer from '../reducers/vodCategories.reducer';
-import * as Colors from '../../../constants/colors';
+import * as Colors from '../../../../constants/colors';
+import { VODCategory } from '../../../../constants/types';
+import VideosList from '../VideosList';
 
-const CategoryTabs = (props: { selectedCategory: VODCategories }) => {
-  const categories = useSelector(reducer.selectVODCategories);
+const CategoryTabs = (props: { selectedCategory: VODCategory }) => {
   const [index, setIndex] = useState(0);
   const [routes, setRoutes] = useState(getRoutesArr());
 
@@ -15,24 +13,17 @@ const CategoryTabs = (props: { selectedCategory: VODCategories }) => {
     setRoutes(getRoutesArr());
   }, [props.selectedCategory]);
 
-  function getSubCategories() {
-    return categories.filter(val => {
-      return val.type === props.selectedCategory;
-    });
-  }
-
   function getRoutesArr() {
     let arr: { key: string; title: string }[] = [];
-    getSubCategories().forEach(cate => {
+    const subs = props.selectedCategory.subCategories;
+    subs.forEach(cate => {
       arr.push({ key: cate.id.toString(), title: cate.name });
     });
     return arr;
   }
 
-  const Route = () => <View style={styles.textContainer} />;
-
-  const renderScene = () => {
-    return <Route />;
+  const Route = () => {
+    return <VideosList chosenItem={props.selectedCategory} index={index} />;
   };
 
   const renderLabel = ({ route }) => {
@@ -45,12 +36,14 @@ const CategoryTabs = (props: { selectedCategory: VODCategories }) => {
 
   return (
     <TabView
+      swipeEnabled={true}
       navigationState={{ index, routes }}
-      renderScene={renderScene}
+      renderScene={Route}
       onIndexChange={setIndex}
-      renderTabBar={props => (
+      initialLayout={{ width: Dimensions.get('window').width }}
+      renderTabBar={tabProps => (
         <TabBar
-          {...props}
+          {...tabProps}
           renderLabel={renderLabel}
           style={styles.tabBar}
           indicatorStyle={styles.tint}
@@ -66,10 +59,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tabBar: {
-    backgroundColor: Colors.vod.menuListBackground,
+    backgroundColor: Colors.vodColors.menuListBackground,
   },
   text: {
-    color: Colors.vod.menuListText,
+    color: Colors.vodColors.menuListText,
   },
   tint: {
     backgroundColor: Colors.tabs.focused,

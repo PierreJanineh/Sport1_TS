@@ -7,7 +7,12 @@ export const tabs = {
   unfocused: '#8b8b8b',
 };
 
-export const vod = {
+export const vodColors = {
   menuListBackground: '#282828',
   menuListText: '#bebebe',
+  videosListBackground: '#171717',
+  videosListSeparator: '#979797',
+  videosListText: '#f8f8f8',
+  imageDurationContainer: '#fff',
+  imageDurationText: '#000',
 };

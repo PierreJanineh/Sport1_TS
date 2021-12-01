@@ -6,7 +6,7 @@ import * as Colors from '../../../constants/colors';
 const ErrorView = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{Strings.vod.error}</Text>
+      <Text style={styles.text}>{Strings.vodStrings.error}</Text>
     </View>
   );
 };
