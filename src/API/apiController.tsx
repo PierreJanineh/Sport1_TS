@@ -1,20 +1,34 @@
-import { apiController } from '../constants/strings';
+import { apiControllerStrings } from '../constants/strings';
+import * as reducer from '../features/vod/reducers/vodCategories.reducer';
+import { VODCategory } from '../constants/types';
 
 export const getMenu = async () => {
-  return apiCall(apiController.mainMenu);
+  return apiCall(apiControllerStrings.mainMenu);
 };
 
-export const getVODMenu = async () => {
-  return apiCall(apiController.vodMenu);
+export const getVODMenu = () => {
+  let categories: VODCategory[] = [];
+  apiCall(apiControllerStrings.vodMenu)
+    .then(result => {
+      if (result) {
+        result.json().then(json => {
+          categories = json.categories;
+          reducer.setVODCategories(categories);
+        });
+      }
+    })
+    .catch(() => {
+      reducer.setVODCategories(null);
+    });
 };
 
 const apiCall = async (endPoint: string) => {
-  const url = apiController.url + endPoint;
+  const url = apiControllerStrings.url + endPoint;
   try {
     return await fetch(url, {
       method: 'get',
       headers: new Headers({
-        [apiController.headerKey]: apiController.headerValue,
+        [apiControllerStrings.headerKey]: apiControllerStrings.headerValue,
       }),
     });
   } catch (err) {
