@@ -12,6 +12,16 @@ export const tabs = {
   more: 'עוד',
 };
 
-export const vod = {
+export const apiControllerStrings = {
+  url: 'https://sp1liv.maariv.co.il/wp-json/',
+  headerKey: 'x-sport1-mobile-app',
+  headerValue: 'true',
+
+  mainMenu: 'sport1/v1/navigation',
+  vodMenu: 'wp/v2/vod/main',
+};
+
+export const vodStrings = {
   error: 'שגיאה בשליפת הקטגוריות והסרטונים',
+  noVideos: 'לא נמצאו סרטונים ברשימה זו.',
 };
