@@ -15,9 +15,10 @@ const VideoHeader = () => {
 
   const onShare = async () => {
     try {
+      const shareURL = video!.share.domain.concat(video!.share.href);
       await Share.share({
-        message: video!.yoast_head_json.og_url,
-        url: video!.yoast_head_json.og_url,
+        message: shareURL,
+        url: shareURL,
       });
     } catch (error) {
       console.log(error);
