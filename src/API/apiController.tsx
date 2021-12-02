@@ -1,24 +1,25 @@
 import { apiControllerStrings } from '../constants/strings';
 import * as reducer from '../features/vod/reducers/vodCategories.reducer';
 import { VODCategory } from '../constants/types';
+import { AppDispatch } from '../constants/store';
 
 export const getMenu = async () => {
   return apiCall(apiControllerStrings.mainMenu);
 };
 
-export const getVODMenu = () => {
+export const getVODMenu = (dispatch: AppDispatch) => {
   let categories: VODCategory[] = [];
   apiCall(apiControllerStrings.vodMenu)
     .then(result => {
       if (result) {
         result.json().then(json => {
           categories = json.categories;
-          reducer.setVODCategories(categories);
+          dispatch(reducer.setVODCategories({ categories: categories }));
         });
       }
     })
     .catch(() => {
-      reducer.setVODCategories(null);
+      dispatch(reducer.setVODCategories({ categories: null }));
     });
 };
 
