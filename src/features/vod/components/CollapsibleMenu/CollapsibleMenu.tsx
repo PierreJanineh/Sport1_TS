@@ -2,22 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import CollapsedArrowSVG from '../../../../../assets/svg/CollapsedArrowSVG';
 import * as Colors from '../../../../constants/colors';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as reducer from '../../reducers/vodCategories.reducer';
 import CategoryTabs from './CategoryTabs';
 import CollapsibleMenuList from './CollapsibleMenuList';
-import VideosList from '../VideosList';
+import VideosList from './VideosList';
 
 const CollapsibleMenu = () => {
   const categories = useSelector(reducer.selectVODCategories);
   const [menuCollapsed, setMenuCollapsed] = useState(true);
   const [chosenItem, setChosenItem] = useState(categories[0]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    reducer.setChosenVideo(
-      categories.filter(val => {
-        return val === chosenItem;
-      })[0].videos[0],
+    dispatch(
+      reducer.setChosenVideo({
+        chosenVideo: categories.filter(val => {
+          return val === chosenItem;
+        })[0].videos[0],
+      }),
     );
   }, [chosenItem]);
 

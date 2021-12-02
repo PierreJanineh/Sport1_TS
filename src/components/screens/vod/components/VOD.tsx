@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import VideoPlayer from '../../../../features/vod/components/VideoPlayer';
 import VideoHeader from '../../../../features/vod/components/VideoHeader';
@@ -12,9 +12,10 @@ import { getVODMenu } from '../../../../API/apiController';
 const VOD = () => {
   const categories = useSelector(reducer.selectVODCategories);
   const loading = useSelector(reducer.selectLoading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getVODMenu();
+    getVODMenu(dispatch);
   }, []);
 
   if (loading) {

@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, Text } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import * as Colors from '../../../../constants/colors';
 import { VODCategory } from '../../../../constants/types';
-import VideosList from '../VideosList';
+import VideosList from './VideosList';
 
 const CategoryTabs = (props: { selectedCategory: VODCategory }) => {
   const [index, setIndex] = useState(0);

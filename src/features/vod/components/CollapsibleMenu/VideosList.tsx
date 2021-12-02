@@ -11,17 +11,18 @@ import {
   ItemSeparatorType,
   VODCategory,
   VODVideo,
-} from '../../../constants/types';
-import * as reducer from '../reducers/vodCategories.reducer';
-import * as Colors from '../../../constants/colors';
-import * as Strings from '../../../constants/strings';
-import ItemSeparator from '../../../components/ItemSeparator';
-import { useSelector } from 'react-redux';
-import { selectChosenVideo } from '../reducers/vodCategories.reducer';
+} from '../../../../constants/types';
+import * as reducer from '../../reducers/vodCategories.reducer';
+import * as Colors from '../../../../constants/colors';
+import * as Strings from '../../../../constants/strings';
+import ItemSeparator from '../../../../components/ItemSeparator';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectChosenVideo } from '../../reducers/vodCategories.reducer';
 
 const VideosList = (props: { chosenItem: VODCategory; index?: number }) => {
   const [data, setData] = useState(getData());
   const selectedVideo = useSelector(selectChosenVideo);
+  const dispatch = useDispatch();
   useEffect(() => {
     setData(getData());
   }, [props.index, selectedVideo]);
@@ -36,7 +37,7 @@ const VideosList = (props: { chosenItem: VODCategory; index?: number }) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          reducer.setChosenVideo(item.item);
+          dispatch(reducer.setChosenVideo({ chosenVideo: item.item }));
         }}
         style={styles.container}>
         <View style={styles.imageContainer}>
