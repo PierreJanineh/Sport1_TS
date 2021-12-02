@@ -42,12 +42,12 @@ const VideosList = (props: { chosenItem: VODCategory; index?: number }) => {
         style={styles.container}>
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: item.item.featured_image.url }}
+            source={{ uri: item.item.featuredImage.url }}
             style={styles.image}
           />
           <View style={styles.imageOverlay}>
             <Text style={styles.imageOverlayText}>
-              {millisToMinutesAndSeconds(item.item.video_duration)}
+              {millisToMinutesAndSeconds(item.item.videoDuration)}
             </Text>
           </View>
         </View>

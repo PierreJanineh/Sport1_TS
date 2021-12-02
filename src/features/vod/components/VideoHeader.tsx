@@ -29,7 +29,7 @@ const VideoHeader = () => {
     <View style={styles.container}>
       {video ? (
         <View style={styles.textContainer}>
-          <Text style={styles.text}>{video!.yoast_head_json.title}</Text>
+          <Text style={styles.text}>{video!.yoastHeadJson.title}</Text>
           <View style={styles.dateTimeContainer}>
             <Text style={[styles.text, styles.date]}>
               {parseDate().toLocaleDateString('default').split('/').join('.')}
