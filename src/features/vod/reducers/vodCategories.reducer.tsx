@@ -17,11 +17,8 @@ const categoriesSlice = createSlice({
     setChosenVideo: (state, action) => {
       state.chosenVideo = action.payload.chosenVideo;
     },
-    setChosenCategory: (state, action) => {
-      state.chosenCategory = {
-        category: action.payload.category,
-        subCategory: action.payload.subCategory,
-      };
+    setError: (state, action) => {
+      state.error = action.payload.error;
     },
   },
 });
@@ -29,9 +26,8 @@ const categoriesSlice = createSlice({
 export const selectVODCategories = (state: RootState) => state.vod.categories;
 export const selectLoading = (state: RootState) => state.vod.loading;
 export const selectChosenVideo = (state: RootState) => state.vod.chosenVideo;
-export const selectChosenCategory = (state: RootState) =>
-  state.vod.chosenCategory;
-export const { setVODCategories, setChosenCategory, setChosenVideo } =
+export const selectError = (state: RootState) => state.vod.error;
+export const { setVODCategories, setChosenVideo, setError } =
   categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

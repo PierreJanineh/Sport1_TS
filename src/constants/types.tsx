@@ -8,7 +8,7 @@ export interface VODCategoriesState {
   categories: VODCategory[];
   loading: boolean;
   chosenVideo?: VODVideo;
-  chosenCategory?: { category: VODCategory; subCategory: VODSubCategory };
+  error?: any;
 }
 
 export interface VODRobots {
