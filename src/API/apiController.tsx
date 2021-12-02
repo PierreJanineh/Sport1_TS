@@ -35,8 +35,8 @@ export const getVODMenu = (dispatch: AppDispatch) => {
         });
       }
     })
-    .catch(() => {
-      dispatch(reducer.setVODCategories({ categories: null }));
+    .catch(err => {
+      dispatch(reducer.setError({ error: err }));
     });
 };
 
