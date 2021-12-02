@@ -10,8 +10,8 @@ import LoadingIndicator from '../../../LoadingIndicator';
 import { getVODMenu } from '../../../../API/apiController';
 
 const VOD = () => {
-  const categories = useSelector(reducer.selectVODCategories);
   const loading = useSelector(reducer.selectLoading);
+  const error = useSelector(reducer.selectError);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,7 +20,9 @@ const VOD = () => {
 
   if (loading) {
     return <LoadingIndicator />;
-  } else if (categories) {
+  } else if (error) {
+    return <ErrorView />;
+  } else {
     return (
       <View style={styles.container}>
         <VideoPlayer />
@@ -28,8 +30,6 @@ const VOD = () => {
         <CollapsibleMenu />
       </View>
     );
-  } else {
-    return <ErrorView />;
   }
 };
 
