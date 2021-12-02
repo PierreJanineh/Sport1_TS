@@ -3,6 +3,21 @@ import * as reducer from '../features/vod/reducers/vodCategories.reducer';
 import { VODCategory } from '../constants/types';
 import { AppDispatch } from '../constants/store';
 
+const toCamelCaseValueObjects = (val: any): any =>
+  typeof val !== 'object' || val === null
+    ? val
+    : Array.isArray(val)
+    ? val.map(toCamelCaseValueObjects)
+    : snakeCaseToCamelCaseKey(val);
+
+const snakeCaseToCamelCaseKey = (obj: JSON) =>
+  Object.fromEntries(
+    Object.entries(obj).map(([key, val]) => [
+      key.replace(/_(.)/g, g => g[1].toUpperCase()),
+      toCamelCaseValueObjects(val),
+    ]),
+  );
+
 export const getMenu = async () => {
   return apiCall(apiControllerStrings.mainMenu);
 };
@@ -13,7 +28,9 @@ export const getVODMenu = (dispatch: AppDispatch) => {
     .then(result => {
       if (result) {
         result.json().then(json => {
-          categories = json.categories;
+          categories = toCamelCaseValueObjects(
+            json.categories,
+          ) as VODCategory[];
           dispatch(reducer.setVODCategories({ categories: categories }));
         });
       }
