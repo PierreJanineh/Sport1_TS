@@ -30,14 +30,14 @@ export interface VODYoastHeadJson {
   title: string;
   robots: VODRobots;
   canonical: string;
-  og_locale: string;
-  og_type: string;
-  og_title: string;
-  og_url: string;
-  og_siteName: string;
-  og_image: VODOgImage[];
-  article_modified_time: string;
-  twitter_card: string;
+  ogLocale: string;
+  ogType: string;
+  ogTitle: string;
+  ogUrl: string;
+  ogSiteName: string;
+  ogImage: VODOgImage[];
+  articleModifiedTime: string;
+  twitterCard: string;
 }
 
 export interface VODFeaturedImage {
@@ -58,17 +58,17 @@ export interface VODShare {
 
 export interface VODVideo {
   id: number;
-  video_id: number;
-  video_name: string;
-  video_duration: number;
-  video_poster: string;
-  featured_image: VODFeaturedImage;
+  videoId: number;
+  videoName: string;
+  videoDuration: number;
+  videoPoster: string;
+  featuredImage: VODFeaturedImage;
   category: VODSubCategory;
   share: VODShare;
   date: string;
   title: string;
-  yoast_head: string;
-  yoast_head_json: VODYoastHeadJson;
+  yoastHead: string;
+  yoastHeadJson: VODYoastHeadJson;
 }
 
 export type VODCategory = {
