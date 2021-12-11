@@ -5,6 +5,7 @@ import {
   LinkItem,
   LinkTypes,
   ListType,
+  RootState,
 } from '../../../constants/types';
 import { store } from '../../../constants/store';
 import * as ApiController from '../../../API/apiController';
@@ -87,12 +88,12 @@ export const getCategories = () => {
     });
 };
 
-export const selectSearchText = (state: CategoriesState) => state.searchTxt;
-export const selectFilteredCategories = (state: CategoriesState) =>
-  state.filteredCategoriesList;
-export const selectMainCategories = (state: CategoriesState) =>
-  state.mainCategories;
-export const selectLinks = (state: CategoriesState) => state.links;
+export const selectSearchText = (state: RootState) => state.main.searchTxt;
+export const selectFilteredCategories = (state: RootState) =>
+  state.main.filteredCategoriesList;
+export const selectMainCategories = (state: RootState) =>
+  state.main.mainCategories;
+export const selectLinks = (state: RootState) => state.main.links;
 
 export const { setSearchText } = categoriesSlice.actions;
 
